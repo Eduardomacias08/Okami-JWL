@@ -108,7 +108,7 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='producto categoria-{$row['categoria']}'>";
-                    echo "<img src='" . $row['imagen'] . "' alt='" . $row['nombre'] . "'>";
+                    echo "<img  src='" . $row['imagen'] . "' alt='" . $row['nombre'] . "'>";
                     echo "<h3>" . $row['nombre'] . "</h3>";
                     echo "<p class='descripcion'>" . $row['descripcion'] . "</p>";
                     echo "<p class='precio'>Precio: $" . $row['precio'] . "</p>";
