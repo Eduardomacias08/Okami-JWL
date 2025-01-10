@@ -2,7 +2,7 @@
 $servername = "autorack.proxy.rlwy.net";
 $username = "root";
 $password = "YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa";
-$dbname = "railway";
+$dbname = "venta_plata";
 $port = 12423; // Puerto de conexión
 
 // Crear conexión
