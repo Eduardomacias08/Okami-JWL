@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost"; // O la dirección de tu servidor
+$servername = "autorack.proxy.rlwy.net"; // O la dirección de tu servidor
 $username = "root";        // Tu usuario de MySQL
-$password = "root";        // Tu contraseña de MySQL
-$dbname = "venta_plata"; // El nombre de tu base de datos
+$password = "YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa";        // Tu contraseña de MySQL
+$dbname = "railway"; // El nombre de tu base de datos
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
