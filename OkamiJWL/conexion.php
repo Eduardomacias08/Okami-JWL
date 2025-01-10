@@ -2,8 +2,8 @@
 $servername = "autorack.proxy.rlwy.net";
 $username = "root";
 $password = "YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa";
-$dbname = "venta_plata";
-$port = 12423; // Puerto de conexión
+$dbname = "railway";
+$port = 3306; // Puerto de conexión
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname, $port);
