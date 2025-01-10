@@ -1,3 +1,7 @@
+
+
+
+
 <?php
 $servername = "autorack.proxy.rlwy.net"; // El host proporcionado por Railway
 $username = "root";                     // El usuario de MySQL (en tu caso es "root")
