@@ -13,7 +13,3 @@ try {
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
 }
-
-// Cerrar la conexión después de usarla
-// Esto es opcional, ya que la conexión se cierra automáticamente cuando el script termina
-$conn = null;
