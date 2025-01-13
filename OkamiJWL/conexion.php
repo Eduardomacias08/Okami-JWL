@@ -6,9 +6,14 @@ $user = 'root';                     // Usuario de la base de datos
 $password = 'YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa';  // Contraseña proporcionada
 
 try {
-    $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password);  // Cambia a $conn
+    // Estableciendo la conexión
+    $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Conexión exitosa a la base de datos.<br>";
+    echo "";
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
 }
+
+// Cerrar la conexión después de usarla
+// Esto es opcional, ya que la conexión se cierra automáticamente cuando el script termina
+$conn = null;
