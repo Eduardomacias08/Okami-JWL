@@ -1,7 +1,7 @@
 <?php
 $host = 'autorack.proxy.rlwy.net';  // Host proporcionado por Railway
 $port = '12423';                    // Puerto proporcionado por Railway
-$dbname = 'venta plata';            // Nombre correcto de tu base de datos
+$dbname = 'railway';                // Nombre de la base de datos
 $user = 'root';                     // Usuario de la base de datos
 $password = 'YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa';  // Contraseña proporcionada
 
@@ -10,7 +10,7 @@ try {
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Conexión exitosa a la base de datos.<br>";
 
-    // Probar una consulta
+    // Probar una consulta para obtener los datos de la tabla "productos"
     $sql = "SELECT * FROM productos";
     $stmt = $conexion->query($sql);
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
