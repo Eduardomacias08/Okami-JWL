@@ -1,18 +1,14 @@
-
-
-
-
 <?php
-$servername = "autorack.proxy.rlwy.net"; // El host proporcionado por Railway
-$username = "root";                     // El usuario de MySQL (en tu caso es "root")
-$password = "YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa"; // La contraseña proporcionada
-$dbname = "railway";                    // El nombre de la base de datos en Railway
+$host = getenv('autorack.proxy.rlwy.net');
+$port = getenv('12423');
+$dbname = getenv('railway');
+$username = getenv('root');
+$password = getenv('YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa');
 
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname, 12423); // Asegúrate de incluir el puerto 12423
-
-// Comprobar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+try {
+    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Conexión exitosa a la base de datos.";
+} catch (PDOException $e) {
+    echo "Error al conectar a la base de datos: " . $e->getMessage();
 }
-?>
