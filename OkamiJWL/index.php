@@ -94,28 +94,31 @@
             try {
                 // Crear la consulta SQL con parámetros preparados
                 if ($categoria === 'todo') {
-                    $sql = "SELECT * FROM productos LIMIT ? OFFSET ?";
+                    $sql = "SELECT * FROM productos LIMIT :limit OFFSET :offset";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("ii", $limit, $offset);
+                    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+                    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
                 } else {
-                    $sql = "SELECT * FROM productos WHERE categoria = ? LIMIT ? OFFSET ?";
+                    $sql = "SELECT * FROM productos WHERE categoria = :categoria LIMIT :limit OFFSET :offset";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("sii", $categoria, $limit, $offset);
+                    $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
+                    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+                    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
                 }
 
                 // Ejecutar la consulta
                 $stmt->execute();
-                $result = $stmt->get_result();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 // Mostrar los productos
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
+                if (count($result) > 0) {
+                    foreach ($result as $row) {
                         echo "<div class='producto categoria-{$row['categoria']}'>";
                         echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='" . htmlspecialchars($row['nombre']) . "'>";
                         echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
                         echo "<p class='descripcion'>" . htmlspecialchars($row['descripcion']) . "</p>";
                         echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . "</p>";
-                        echo "<button class='añadir'><img class='cart-icon1' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAACmElEQVR4nOWYW4hOURiGt5nJKOdxSGlqGlfKhRxySDGGpDElLhyixgVTUwold46557/QDA2NIolocrhAk6QkjHKB5HRjSmiaifzGzKOVVy1/+7B+1m/v8ta+eb+9vvXstfda69srCCTgELAuyKKAkcAXYBBYFWRRwBpgCPgIVAVZFHCMn8oFWRQwCegD8sDkIIsCchrFliCLAuoE+BDYk9K1NmlGfyd9TYmDfJUy3CegLA7wesqAnUnf4ZGEBD1ANXAiJLYEaArx9wLTga8OgLuTAFsSEnTpvqbCgPyaMHDFXjsAzksCrE8R8DMwPAmwOkXAm7FwSjIM6E8JcF8ioBJ1pwS41BXwXAqAebNRuAIeSAHwqhOcEm2MSdSte3aExMYBM0P81UA58OGvX686n0O8bmlLKtRj4EWI/w64G5Ov1RlOgGP4d2oHKooCFKR56lJpELgNNBQNZgF2eQDpBx4B54HDmlgLzRv6YzALsM0RIg+8BG4AR4FtwDKgNrZs8gC4y4L4ZkG0qfJtFER5ySASAFcI7kpqEHECRgC9quGWB1kUsEWjOKT17YGn6xow2uepg1mAB/CnXmCqF0ALtBIY7+mqDP5LAfOBZmCD6yGTjlQ2aX2cXSqwscCFgu+oD1jvUBWZ783WJee6rwjADiV/CuwHTukEYiBqVIC5iptFvhU4qMXe6KRPuGlK+gYYZfnb5XdEtOtUfLPlTQDe6+Em+gJcqY7aI/7+7kW0e674b+sdcFH+Al+As5Twvvnjs/xG+Zcj2plyymiR5VUAz+TX+AIsA54o6WlgscqmHnmhx2XAVsXfatbXWaN3xwuc1dkMC8hWLuHBfk0uW+bHqdYroDqsUpl1VufZ9Y7tGoDjwBlgZzF78A9Tsw+CIOzCowAAAABJRU5ErkJggg==' alt='Añadir al carrito'>Encargar</button>";
+                        echo "<button class='añadir'><img class='cart-icon1' src='data:image/png;base64,...' alt='Añadir al carrito'>Encargar</button>";
                         echo "<a href='#' class='mas-info'>Más Información</a>";
                         echo "</div>";
                     }
@@ -124,8 +127,8 @@
                 }
 
                 // Cerrar la declaración y la conexión
-                $stmt->close();
-                $conn->close();
+                $stmt = null;
+                $conn = null;
             } catch (Exception $e) {
                 echo "<div class='error'>Error: " . $e->getMessage() . "</div>";
             }

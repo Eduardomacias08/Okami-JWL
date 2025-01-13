@@ -6,8 +6,8 @@ $user = 'root';                     // Usuario de la base de datos
 $password = 'YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa';  // Contraseña proporcionada
 
 try {
-    $conexion = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password);
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password);  // Cambia a $conn
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Conexión exitosa a la base de datos.<br>";
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
