@@ -1,9 +1,9 @@
 <?php
-$host = 'autorack.proxy.rlwy.net';
-$port = 12423;
-$dbname = 'railway';
-$user = 'root';
-$password = 'YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa';
+$host = getenv('autorack.proxy.rlwy.net');
+$port = getenv('12423');
+$dbname = getenv('railway');
+$user = getenv('root');
+$password = getenv('YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa');
 
 try {
     $conexion = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password);
@@ -12,3 +12,4 @@ try {
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
 }
+?>
