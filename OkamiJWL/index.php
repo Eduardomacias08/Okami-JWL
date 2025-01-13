@@ -118,7 +118,7 @@
                         echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
                         echo "<p class='descripcion'>" . htmlspecialchars($row['descripcion']) . "</p>";
                         echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . "</p>";
-                        echo "<button class='añadir'><img class='cart-icon1' src='imagenes/carrito.gif' alt='Añadir al carrito'>Encargar</button>";
+                        echo "<button class='añadir'><img class='cart-icon1' src='./imagenes/carrito.png' alt='Añadir al carrito'>Encargar</button>";
                         echo "<a href='#' class='mas-info'>Más Información</a>";
                         echo "</div>";
                     }
