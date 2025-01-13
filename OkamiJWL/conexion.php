@@ -1,9 +1,9 @@
 <?php
-$host = getenv('autorack.proxy.rlwy.net');
-$port = getenv('12423');
-$dbname = getenv('railway');
-$user = getenv('root');
-$password = getenv('YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa');
+$host = 'autorack.proxy.rlwy.net';  // Host proporcionado por Railway
+$port = '12423';                    // Puerto proporcionado por Railway
+$dbname = 'railway';                 // Nombre de la base de datos proporcionada
+$user = 'root';                     // Usuario de la base de datos
+$password = 'YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa';  // Contraseña proporcionada
 
 try {
     $conexion = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password);
