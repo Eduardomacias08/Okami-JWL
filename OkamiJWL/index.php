@@ -57,12 +57,15 @@
 
     <div id="contenido">
         <div class="barra-busqueda">
-            <input type="text" placeholder="Buscar" />
-            <button>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAACC0lEQVR4nO2Wz04bMRDG99JSHqBrf5+dBFBOOTXNnfZAmwvkKSgUKrUNPVS8B1ypikR7gFN5naKKV+CPFKRGrQZmGxNtijdZoh46krXy2OOfZz0zdpL8lxzx3s8CaANYA/BRv23RJ/chaZoukNwneUHyV04T/b7MKw1KcgvA1QjgrSbznHPdiaEAdoOF+yQPSC5Xq1W0Wq0H8iW5ovp+sIGdiTzlYKHvJJ/cMb+p865txvI8TdOF7PfKYtbaxzF2Mi+DA+gZY+YLgXkTSLLzn3d5mmPbzH47gM/Rht772SB6DwrteAD/ovbntVrtUZQRgHYQUMtjgjtBfLyIBa9lRhK1onPOeZJHJDe1/xzAsbX2mYLeyLj33km/UqkwAL+KBW9nRo1G46Eu/EF1ZzrnWBf9puPnOr4l/Xq9PhOAtyfyGMAhyQ3pi6cCtdYuKnhTxvM8ttaux4JfBme8kkzrjH0JUQ3gq9pfFrpAOMhjycdmQejTII/3pla5SJ5klct7X0+KinOuO1SrmxGengQ2bwtDM5FbZuh2korUkaiVVNPo7aj+z+2k4NVkEnHOdQvcxz3xVKCB/ocxZm4suDFmXgr+X14glwA+hWc6ND4+XEQKvuSllEF5c5F8TXIpL2UEVio8VgBUw2DTdlrqu2yUiId5ntvI9CwdDuD9vYNHwJeSaYm+x95NFfpPym8dgAm3JHRpSgAAAABJRU5ErkJggg=="
-                    alt="search-more">
-            </button>
+            <form method="GET" action="index.php">
+                <input type="text" name="buscar" placeholder="Buscar" value="<?php echo isset($_GET['buscar']) ? $_GET['buscar'] : ''; ?>" />
+                <button type="submit">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAACC0lEQVR4nO2Wz04bMRDG99JSHqBrf5+dBFBOOTXNnfZAmwvkKSgUKrUNPVS8B1ypikR7gFN5naKKV+CPFKRGrQZmGxNtijdZoh46krXy2OOfZz0zdpL8lxzx3s8CaANYA/BRv23RJ/chaZoukNwneUHyV04T/b7MKw1KcgvA1QjgrSbznHPdiaEAdoOF+yQPSC5Xq1W0Wq0H8iW5ovp+sIGdiTzlYKHvJJ/cMb+p865txvI8TdOF7PfKYtbaxzF2Mi+DA+gZY+YLgXkTSLLzn3d5mmPbzH47gM/Rht772SB6DwrteAD/ovbntVrtUZQRgHYQUMtjgjtBfLyIBa9lRhK1onPOeZJHJDe1/xzAsbX2mYLeyLj33km/UqkwAL+KBW9nRo1G46Eu/EF1ZzrnWBf9puPnOr4l/Xq9PhOAtyfyGMAhyQ3pi6cCtdYuKnhTxvM8ttaux4JfBme8kkzrjH0JUQ3gq9pfFrpAOMhjycdmQejTII/3pla5SJ5klct7X0+KinOuO1SrmxGengQ2bwtDM5FbZuh2korUkaiVVNPo7aj+z+2k4NVkEnHOdQvcxz3xVKCB/ocxZm4suDFmXgr+X14glwA+hWc6ND4+XEQKvuSllEF5c5F8TXIpL2UEVio8VgBUw2DTdlrqu2yUiId5ntvI9CwdDuD9vYNHwJeSaYm+x95NFfpPym8dgAm3JHRpSgAAAABJRU5ErkJggg=="
+                        alt="search-more">
+                </button>
+            </form>
         </div>
+
         <div class="categorias">
             <button class="categoria" data-category="promociones" onclick="window.location.href='?categoria=promociones'">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAACWklEQVR4nM1Uy2oUURA95Wsh0UVc6MoHKggGRVARRXThD7jIxiAIPr5AYXRmqkDITo2IxmhQEFzIgJmu6lGDinEhYnyAO9cqKpqFQhDfGbkzzaQdb/f0ZFx44dLd3L51quqcU8D/sASj3UL6WEifC3SfwOa7J5M+E7IHOYws6hCiSkIWCFk1tr/Hv5nsTi9Ks9vM3NYw6ZV6cH3YBFD1bSZ9IaR3hfRaHiMrW4OQXs4SWBIB7VJLECYd7wxEx1MBCgg2MNlkh5VMFhCu9/BQmiekQ0z2y5PZeUGpqwjbxKQT02f6VKDrmHTKc+eHkJ4SjM2ZbhFsb1JmR6GLXQsY2itkg40zhDuFrJJaGexAA6QI3Zb04yFcmFvLDFZgsv6oJSoIdrVqXRG2o9kPr/zZlLqE9KvAckx6sg4Y9kRmTBPAuz/8cwTBAiZ74wcpb2WEfXlUlkVeOMvQ/RlU9tolGPOGnUhRy3smGxDSUSH7lIeuELK3THrDkevOU8DOxLxhHzNJFJYTsuNCdltQXi6wPWl8ujY3Wsak5zKU/1Kgq5j0c63yOkdf6pwlggzFfCKzmHQ4FQRhXzTTXAv7ndqE7KdTX0JSwy5uk9vD1Sm8PBEEG2NmHYx888j5yHfHCeUv1xcRbk/mwnlC78eynHATQHBzoZBe9N0pQNd6RotuyUQ+ZdywpZ7xWCVGcNBJtUboDAJzfbgGRYS7PQDNVYU9MwD4JqgsQTuLScfaA9KrbQFE1WwWsntCVhLY4eg9nvl1gR5j0jKT3fKqqd0V+eG0kH4QGDsOOw76L9dv0DhTCBIDA3UAAAAASUVORK5CYII=" alt="discount--v1">
@@ -84,26 +87,58 @@
             include('conexion.php');
 
             // Definir la página actual y el límite
-            $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $limit = 8;
             $offset = ($page - 1) * $limit;
+
+            // Obtener los términos de búsqueda desde la URL
+            $buscar = isset($_GET['buscar']) ? trim($_GET['buscar']) : '';
 
             // Obtener la categoría desde la URL (por defecto es 'todo')
             $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : 'todo';
 
             try {
-                // Crear la consulta SQL con parámetros preparados
-                if ($categoria === 'todo') {
-                    $sql = "SELECT * FROM productos LIMIT :limit OFFSET :offset";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-                    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-                } else {
-                    $sql = "SELECT * FROM productos WHERE categoria = :categoria LIMIT :limit OFFSET :offset";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
-                    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-                    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+                // Crear la consulta SQL base
+                $sql = "SELECT * FROM productos WHERE 1=1";
+
+                // Agregar búsqueda si hay término
+                if ($buscar) {
+                    $buscar = strtolower($buscar);  // Convertir todo a minúsculas una vez
+                    $sql .= " AND (
+                        LOWER(nombre) LIKE :buscar
+                        OR LOWER(descripcion) LIKE :buscar
+                        OR LOWER(categoria) LIKE :buscar
+                        OR LOWER(informacion) LIKE :buscar";
+
+                    // Buscar por género (masculino, hombre, femenino, mujer)
+                    if (strpos($buscar, 'hombre') !== false) {
+                        $sql .= " OR LOWER(genero) IN ('masculino', 'hombre')";
+                    } elseif (strpos($buscar, 'mujer') !== false) {
+                        $sql .= " OR LOWER(genero) IN ('femenino', 'mujer')";
+                    }
+
+                    $sql .= ")";
+                }
+
+                // Filtrar por categoría si no es 'todo'
+                if ($categoria !== 'todo') {
+                    $sql .= " AND categoria = :categoria";
+                }
+
+                // Agregar límite y offset
+                $sql .= " LIMIT :limit OFFSET :offset";
+
+                // Preparar la consulta
+                $stmt = $conn->prepare($sql);
+
+                // Vincular los parámetros
+                if ($buscar) {
+                    $stmt->bindValue(':buscar', "%{$buscar}%", PDO::PARAM_STR);
+                }
+                $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+                $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+                if ($categoria !== 'todo') {
+                    $stmt->bindValue(':categoria', $categoria, PDO::PARAM_STR);
                 }
 
                 // Ejecutar la consulta
@@ -113,17 +148,21 @@
                 // Mostrar los productos
                 if (count($result) > 0) {
                     foreach ($result as $row) {
+                        // Determinar el género
+                        $genero = (strtolower($row['genero']) == 'masculino' || strtolower($row['genero']) == 'hombre') ? 'M' : ((strtolower($row['genero']) == 'femenino' || strtolower($row['genero']) == 'mujer') ? 'F' : '');
+
+
                         echo "<div class='producto categoria-{$row['categoria']}'>";
                         echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='" . htmlspecialchars($row['nombre']) . "'>";
                         echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
                         echo "<p class='descripcion'>" . htmlspecialchars($row['descripcion']) . "</p>";
-                        echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . "</p>";
+                        echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . " <span class='genero'>{$genero}</span></p>";
                         echo "<button class='añadir'>Encargar</button>";
                         echo "<a href='#' class='mas-info'>Más Información</a>";
                         echo "</div>";
                     }
                 } else {
-                    echo "<div class='mensaje-vacio'>No hay productos disponibles.</div>";
+                    echo "<div class='mensaje-vacio'>No se encontraron productos.</div>";
                 }
 
                 // Cerrar la declaración y la conexión
@@ -133,6 +172,7 @@
                 echo "<div class='error'>Error: " . $e->getMessage() . "</div>";
             }
             ?>
+
 
 
 

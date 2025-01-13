@@ -18,10 +18,7 @@ body {
     /*background-color: #333;*/
 }
 
-.menu-toggle,
-.floating-menu {
-    display: none;
-}
+
 
 /* Estilos del Navbar */
 .navbar {
@@ -400,6 +397,17 @@ nav button:hover {
     cursor: pointer;
 }
 
+.barra-busqueda form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.barra-busqueda button {
+    margin-left: auto;
+}
+
+
 
 .categorias {
     display: flex;
@@ -541,6 +549,24 @@ nav button:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
+
+/* Estilo para el género (M/F) */
+.producto .genero {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #7f01b2;
+    /* Color morado */
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    margin-left: 10px;
+    /* Espacio entre el precio y el género */
+}
+
 
 .mensaje-vacio {
     grid-column: 1 / -1;
