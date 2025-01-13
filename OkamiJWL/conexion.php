@@ -1,7 +1,7 @@
 <?php
 $host = 'autorack.proxy.rlwy.net';  // Host proporcionado por Railway
 $port = '12423';                    // Puerto proporcionado por Railway
-$dbname = 'railway';                // Nombre de la base de datos
+$dbname = 'venta_plata';            // Cambia el nombre de la base de datos a "venta_plata"
 $user = 'root';                     // Usuario de la base de datos
 $password = 'YpeFZHtOVQXTBdGXiJqbJsEvxpFATZAa';  // Contraseña proporcionada
 
