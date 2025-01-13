@@ -80,8 +80,7 @@
 
         <div class="productos" id="productos">
             <?php
-            // Incluir archivo de conexión
-            include('conexion.php');
+
 
             // Definir la página actual y el límite
             $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
