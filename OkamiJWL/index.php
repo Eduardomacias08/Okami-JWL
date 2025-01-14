@@ -19,7 +19,7 @@
     <header class="navbar">
         <div class="logo">
             <a href="?categoria=todo">
-                <img src="imagenes/LOGO.png" alt="Logo">
+                <img src="imagenes/LOGO.png" alt="Logo" loading="lazy">
                 <span><strong>OKAMI</strong>-JWL</span>
             </a>
         </div>
@@ -40,7 +40,7 @@
                 <h2>OFERTAS DE</h2>
             </div>
             <div class="imagen">
-                <img src="./imagenes/TITULO.png" alt="TITULO">
+                <img src="./imagenes/TITULO.png" alt="TITULO" loading="lazy">
             </div>
         </div>
     </div>
@@ -131,7 +131,7 @@
                     foreach ($result as $row) {
                         $whatsappMessage = urlencode("Me interesa este artículo\n" . $row['nombre'] . "\nPrecio: $" . number_format($row['precio'], 2) . "\nDescripción: " . $row['descripcion'] . "\nID: " . $row['id'] . "\nImagen: " . $row['imagen']);
                         echo "<div class='producto categoria-{$row['categoria']}'>";
-                        echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='" . htmlspecialchars($row['nombre']) . "'>";
+                        echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='" . htmlspecialchars($row['nombre']) . "' loading='lazy'>";
                         echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
                         echo "<p class='descripcion'>" . htmlspecialchars($row['descripcion']) . "</p>";
                         echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . "</p>";
@@ -209,7 +209,7 @@
 
 
     <a href="https://wa.me/5215531566574" class="whatsapp-float" target="_blank" aria-label="Chat en WhatsApp">
-        <img src="https://img.icons8.com/ios-filled/50/FFFFFF/whatsapp.png" alt="WhatsApp">
+        <img src="https://img.icons8.com/ios-filled/50/FFFFFF/whatsapp.png" alt="WhatsApp" loading="lazy">
     </a>
     <script src="./java.js"></script>
 </body>
