@@ -209,7 +209,7 @@
                 <h3>Formas de pago</h3>
                 <ul>
                     <li><i class="fas fa-university"></i> Transferencia bancaria</li>
-                    <li><i class="fas fa-money-bill-alt"></i> Dinero</li>
+                    <li><i class="fas fa-money-bill-alt"></i> Efectivo</li>
                     <li><i class="fas fa-link"></i> Enlace de pago</li>
                 </ul>
             </div>
@@ -218,7 +218,7 @@
                 <h3>Métodos de envío</h3>
                 <ul>
                     <li><i class="fas fa-truck"></i> Entrega a domicilio</li>
-                    <li><i class="fas fa-store"></i> Recogida en tienda</li>
+                    <li><i class="fas fa-store"></i> Entrega en tienda</li>
                 </ul>
             </div>
 
