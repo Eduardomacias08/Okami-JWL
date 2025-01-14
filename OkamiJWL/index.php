@@ -155,10 +155,10 @@
         </div>
 
         <div class="paginacion">
-            <a href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>" id="prevPage" class="btn atras">
+            <a href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>&categoria=<?php echo $categoria; ?>" id="prevPage" class="btn atras <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA2ElEQVR4nO3YQQ7BQBSH8be1qpPYiISEu7iCOAV3cBukOBBSyWdRtUA7YyHmTf6/ZXdfZvoyeWYiIiIieQF6wByYmFdAHzhSq4CROY9oLMwToAAOvFtaBhF+QuiO8BFCOCL9EOIi0g4hPiLdEOoReyItF2APzH5xEv9QAUPvEY1NKCK169Rm1xWyxo+yK2RFJiFFFlcr4bH73c/uaHJdgUEwJOGTOQNbYBoVkdUTJatH40tM6T4kMsZHSESMn5BAjK+QbNZBLTE3lwu6DyvT8fOjiIiIiNjDHQF+p9x+Ld3yAAAAAElFTkSuQmCC" alt="left">
             </a>
-            <a href="?page=<?php echo $page + 1; ?>" id="nextPage" class="btn siguiente">
+            <a href="?page=<?php echo ($page < $total_pages) ? $page + 1 : $total_pages; ?>&categoria=<?php echo $categoria; ?>" id="nextPage" class="btn siguiente <?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA7klEQVR4nO3Yu0kFQRSA4WnAxFBXMRbFYsTQ1Dq0GB/YgYGdLMxWYOLF9JOLkVfYHURwznK+CuZnHjs7paSUUkoppV04xw32S1Q4xocvI45KRLj03RgyBld+mnBSVhASL2YmJFbMQkicmIaQGDGNIb+LwQVesdGXsfloxiHe9Gtqmhnc6d+0GIMnMYzb1TMX8iyOh7WE3M+FPFrJ0roVI2JY2uwHnR+/tfnDiDO84F20mQhwRald37caQ2rXEY0htfuIhpAaImIhpIaJmAmpoSJmnoOGEs32R2nngW4oUeEU19j777GklFJKKZW/9QlgUKhffbj4UgAAAABJRU5ErkJggg==" alt="right">
             </a>
         </div>

@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
+
 function mostrarTexto() {
     const recuadro = document.getElementById('texto-quienes-somos');
     // Si el recuadro está oculto, mostrarlo

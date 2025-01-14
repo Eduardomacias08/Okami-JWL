@@ -528,6 +528,11 @@ nav button:hover {
     height: 35px;
 }
 
+.paginacion a.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 /* Botón flotante de WhatsApp */
 .whatsapp-float {
     position: fixed;
