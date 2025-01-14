@@ -16,32 +16,22 @@
 </head>
 
 <body>
-    <!-- Navbar -->
     <header class="navbar">
-
-
-
         <div class="logo">
             <a href="?categoria=todo">
                 <img src="imagenes/LOGO.png" alt="Logo">
                 <span><strong>OKAMI</strong>-JWL</span>
             </a>
         </div>
-
-
         <nav>
             <button onclick="window.location.href='index.php?categoria=todo'">Inicio</button>
             <button id="btn-quienes-somos" onclick="mostrarTexto()">Quiénes Somos</button>
             <button onclick="window.location.href='https://wa.me/?text=' + encodeURIComponent(window.location.href)">Compartir</button>
         </nav>
-
-        <!-- El recuadro para mostrar el texto en el centro de la pantalla -->
         <div id="texto-quienes-somos" style="display:none;">
-            ¡Hola! !Somos Okami-JWL! Bienvenido a nuestro negocio de venta de plata, espero encuentre lo que busque y pregunte por lo que mas le guste ! <br>
+            ¡Hola! ¡Somos Okami-JWL! Bienvenido a nuestro negocio de venta de plata, espero encuentre lo que busque y pregunte por lo que más le guste! <br>
             <button onclick="quitarTexto()">Cerrar</button>
         </div>
-
-
     </header>
 
     <div class="fondo">
@@ -81,9 +71,8 @@
 
 
         <?php
-        include('conexion.php'); // Asegúrate de que la ruta sea correcta.
+        include('conexion.php');
 
-        // Paginación
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $limit = 8;
         $offset = ($page - 1) * $limit;
@@ -91,7 +80,6 @@
         $buscar = isset($_GET['buscar']) ? trim($_GET['buscar']) : '';
         $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : 'todo';
 
-        // Contar total de productos
         $sql_count = "SELECT COUNT(*) FROM productos WHERE 1=1";
         if ($buscar) {
             $buscar = strtolower($buscar);
@@ -111,57 +99,43 @@
         $stmt_count->execute();
         $total_products = $stmt_count->fetchColumn();
 
-        // Calcular el número total de páginas
         $total_pages = ceil($total_products / $limit);
         ?>
 
         <div class="productos">
-            <!-- Mostrar productos -->
             <?php
             $stmt_count = null;
-            // Consulta base para obtener solo productos activos
             $sql = "SELECT * FROM productos WHERE activo = 1";
-
-            // Verificar si se ha seleccionado una categoría específica
             if ($categoria && $categoria !== 'todo') {
-                $sql .= " AND categoria = :categoria"; // Filtrar por categoría específica
+                $sql .= " AND categoria = :categoria";
             }
-
-            // Verificar si hay un término de búsqueda
             if ($buscar) {
                 $sql .= " AND (LOWER(nombre) LIKE :buscar OR LOWER(descripcion) LIKE :buscar OR LOWER(informacion) LIKE :buscar)";
             }
-
-            // Limitar los resultados con paginación
             $sql .= " LIMIT :limit OFFSET :offset";
 
             try {
                 $stmt = $conn->prepare($sql);
-
-                // Vincular categoría si no es "todo"
                 if ($categoria && $categoria !== 'todo') {
                     $stmt->bindValue(':categoria', $categoria, PDO::PARAM_STR);
                 }
-
-                // Vincular parámetros de búsqueda si hay
                 if ($buscar) {
                     $stmt->bindValue(':buscar', "%{$buscar}%", PDO::PARAM_STR);
                 }
-
                 $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
                 $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 if (count($result) > 0) {
                     foreach ($result as $row) {
+                        $whatsappMessage = urlencode("Me interesa este artículo\n" . $row['nombre'] . "\nPrecio: $" . number_format($row['precio'], 2) . "\nDescripción: " . $row['descripcion'] . "\nID: " . $row['id'] . "\nImagen: " . $row['imagen']);
                         echo "<div class='producto categoria-{$row['categoria']}'>";
                         echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='" . htmlspecialchars($row['nombre']) . "'>";
                         echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
                         echo "<p class='descripcion'>" . htmlspecialchars($row['descripcion']) . "</p>";
                         echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . "</p>";
-                        echo "<button class='añadir' onclick='window.open(\"https://wa.me/+525531566578?text=" . urlencode("Me interesa este artículo\n" . $row['nombre'] . "\nPrecio: $" . number_format($row['precio'], 2) . "\nDescripción: " . $row['descripcion'] . "\nID: " . $row['id'] . "\nImagen: " . $row['imagen']) . "\", \"_blank\")'>Encargar</button>";
+                        echo "<button class='añadir' onclick='window.open(\"https://wa.me/+525531566578?text={$whatsappMessage}&media={$row['imagen']}\", \"_blank\")'>Encargar</button>";
                         echo "</div>";
                     }
                 } else {
@@ -171,24 +145,15 @@
                 echo "Error: " . $e->getMessage();
             }
 
-
             $stmt = null;
             $conn = null;
-
             ?>
-
-
         </div>
 
         <div class="pagina-info">
-            <!-- Mostrar "Página X de Y" -->
             <p class='pagina-actual'>Página <?php echo $page; ?> de <?php echo $total_pages; ?></p>
         </div>
 
-
-
-
-        <!-- Paginación -->
         <div class="paginacion">
             <a href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>" id="prevPage" class="btn atras">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA2ElEQVR4nO3YQQ7BQBSH8be1qpPYiISEu7iCOAV3cBukOBBSyWdRtUA7YyHmTf6/ZXdfZvoyeWYiIiIieQF6wByYmFdAHzhSq4CROY9oLMwToAAOvFtaBhF+QuiO8BFCOCL9EOIi0g4hPiLdEOoReyItF2APzH5xEv9QAUPvEY1NKCK169Rm1xWyxo+yK2RFJiFFFlcr4bH73c/uaHJdgUEwJOGTOQNbYBoVkdUTJatH40tM6T4kMsZHSESMn5BAjK+QbNZBLTE3lwu6DyvT8fOjiIiIiNjDHQF+p9x+Ld3yAAAAAElFTkSuQmCC" alt="left">
@@ -197,12 +162,8 @@
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA7klEQVR4nO3Yu0kFQRSA4WnAxFBXMRbFYsTQ1Dq0GB/YgYGdLMxWYOLF9JOLkVfYHURwznK+CuZnHjs7paSUUkoppV04xw32S1Q4xocvI45KRLj03RgyBld+mnBSVhASL2YmJFbMQkicmIaQGDGNIb+LwQVesdGXsfloxiHe9Gtqmhnc6d+0GIMnMYzb1TMX8iyOh7WE3M+FPFrJ0roVI2JY2uwHnR+/tfnDiDO84F20mQhwRald37caQ2rXEY0htfuIhpAaImIhpIaJmAmpoSJmnoOGEs32R2nngW4oUeEU19j777GklFJKKZW/9QlgUKhffbj4UgAAAABJRU5ErkJggg==" alt="right">
             </a>
         </div>
-
-
     </div>
 
-
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
