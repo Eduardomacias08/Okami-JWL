@@ -86,52 +86,63 @@
             // Incluir archivo de conexión
             include('conexion.php');
 
-            // Definir la página actual y el límite
+            // Verificar si se solicitó información de un producto (solicitud AJAX)
+            if (isset($_GET['informacion_id'])) {
+                $informacion_id = $_GET['informacion_id'];
+                try {
+                    // Consultar la información del producto por ID
+                    $sql = "SELECT nombre, descripcion, precio, informacion, imagen FROM productos WHERE id = :id";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bindValue(':id', $informacion_id, PDO::PARAM_INT);
+                    $stmt->execute();
+                    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                    if ($product) {
+                        // Mostrar la información del producto
+                        echo "<h2>" . htmlspecialchars($product['nombre']) . "</h2>";
+                        echo "<p>" . htmlspecialchars($product['descripcion']) . "</p>";
+                        echo "<p><strong>Precio:</strong> $" . number_format($product['precio'], 2) . "</p>";
+                        echo "<p><strong>Información adicional:</strong> " . htmlspecialchars($product['informacion']) . "</p>";
+                        echo "<img src='" . htmlspecialchars($product['imagen']) . "' alt='" . htmlspecialchars($product['nombre']) . "'>";
+                    } else {
+                        echo "Producto no encontrado.";
+                    }
+
+                    $stmt = null;
+                    $conn = null;
+                } catch (Exception $e) {
+                    echo "<div class='error'>Error: " . $e->getMessage() . "</div>";
+                }
+                exit;  // Finaliza la ejecución para la solicitud AJAX
+            }
+
+            // El código original para mostrar los productos sigue después
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $limit = 8;
             $offset = ($page - 1) * $limit;
 
-            // Obtener los términos de búsqueda desde la URL
             $buscar = isset($_GET['buscar']) ? trim($_GET['buscar']) : '';
-
-            // Obtener la categoría desde la URL (por defecto es 'todo')
             $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : 'todo';
 
             try {
-                // Crear la consulta SQL base
                 $sql = "SELECT * FROM productos WHERE 1=1";
-
-                // Agregar búsqueda si hay término
                 if ($buscar) {
-                    $buscar = strtolower($buscar);  // Convertir todo a minúsculas una vez
+                    $buscar = strtolower($buscar);
                     $sql .= " AND (
-                        LOWER(nombre) LIKE :buscar
-                        OR LOWER(descripcion) LIKE :buscar
-                        OR LOWER(categoria) LIKE :buscar
-                        OR LOWER(informacion) LIKE :buscar";
-
-                    // Buscar por género (masculino, hombre, femenino, mujer)
-                    if (strpos($buscar, 'hombre') !== false) {
-                        $sql .= " OR LOWER(genero) IN ('masculino', 'hombre')";
-                    } elseif (strpos($buscar, 'mujer') !== false) {
-                        $sql .= " OR LOWER(genero) IN ('femenino', 'mujer')";
-                    }
-
+        LOWER(nombre) LIKE :buscar
+        OR LOWER(descripcion) LIKE :buscar
+        OR LOWER(categoria) LIKE :buscar
+        OR LOWER(informacion) LIKE :buscar";
                     $sql .= ")";
                 }
-
-                // Filtrar por categoría si no es 'todo'
                 if ($categoria !== 'todo') {
                     $sql .= " AND categoria = :categoria";
                 }
 
-                // Agregar límite y offset
                 $sql .= " LIMIT :limit OFFSET :offset";
 
-                // Preparar la consulta
                 $stmt = $conn->prepare($sql);
 
-                // Vincular los parámetros
                 if ($buscar) {
                     $stmt->bindValue(':buscar', "%{$buscar}%", PDO::PARAM_STR);
                 }
@@ -141,16 +152,12 @@
                     $stmt->bindValue(':categoria', $categoria, PDO::PARAM_STR);
                 }
 
-                // Ejecutar la consulta
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                // Mostrar los productos
                 if (count($result) > 0) {
                     foreach ($result as $row) {
-                        // Determinar el género
                         $genero = (strtolower($row['genero']) == 'masculino' || strtolower($row['genero']) == 'hombre') ? 'M' : ((strtolower($row['genero']) == 'femenino' || strtolower($row['genero']) == 'mujer') ? 'F' : '');
-
 
                         echo "<div class='producto categoria-{$row['categoria']}'>";
                         echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='" . htmlspecialchars($row['nombre']) . "'>";
@@ -158,20 +165,25 @@
                         echo "<p class='descripcion'>" . htmlspecialchars($row['descripcion']) . "</p>";
                         echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . " <span class='genero'>{$genero}</span></p>";
                         echo "<button class='añadir' onclick='window.open(\"https://wa.me/+525584039044?text=" . urlencode("Me interesa este artículo\n" . $row['nombre'] . "\nPrecio: $" . number_format($row['precio'], 2) . "\nDescripción: " . $row['descripcion'] . "\nID: " . $row['id'] . "\nImagen: " . $row['imagen']) . "\", \"_blank\")'>Encargar</button>";
-                        echo "<a href='#' class='mas-info'>Más Información</a>";
                         echo "</div>";
                     }
                 } else {
                     echo "<div class='mensaje-vacio'>No se encontraron productos.</div>";
                 }
 
-                // Cerrar la declaración y la conexión
                 $stmt = null;
                 $conn = null;
             } catch (Exception $e) {
                 echo "<div class='error'>Error: " . $e->getMessage() . "</div>";
             }
             ?>
+
+            <div id="informacion-producto"></div>
+
+            <script src="java.js"></script>
+
+
+
 
         </div>
 
