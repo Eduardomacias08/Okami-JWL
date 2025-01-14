@@ -22,9 +22,13 @@
 
 
         <div class="logo">
-            <img src="imagenes/LOGO.png" alt="Logo">
-            <span><strong>OKAMI</strong>-JWL</span>
+            <a href="?categoria=todo">
+                <img src="imagenes/LOGO.png" alt="Logo">
+                <span><strong>OKAMI</strong>-JWL</span>
+            </a>
         </div>
+
+
         <nav>
             <button onclick="window.location.href='index.php?categoria=todo'">Inicio</button>
             <button id="btn-quienes-somos" onclick="mostrarTexto()">Quiénes Somos</button>

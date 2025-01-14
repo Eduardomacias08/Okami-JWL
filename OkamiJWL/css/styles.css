@@ -46,23 +46,41 @@ body {
 
 
 
-
 .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
     display: flex;
     align-items: center;
 }
 
 .logo img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
+    width: 50px;
+    /* Ajusta el tamaño del logo */
+    height: 50px;
+    /* Ajusta el tamaño del logo */
     border-radius: 50%;
+    /* Esto hace que la imagen esté dentro de un círculo */
     background-color: white;
+    /* Fondo blanco */
+    padding: 5px;
+    /* Esto da un pequeño espacio entre la imagen y el borde del círculo */
 }
 
 .logo span {
     font-size: 1.5rem;
+    /* Ajusta el tamaño de la fuente según lo necesites */
+    font-weight: bold;
+    margin-left: 10px;
+    /* Espacio entre la imagen y el texto */
 }
+
 
 nav {
     display: flex;
