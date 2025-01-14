@@ -581,6 +581,37 @@ nav button:hover {
 
 
 
+.pagina-actual {
+    font-weight: bold;
+    text-align: right;
+}
+
+.pagina-info {
+
+    margin-bottom: 10px;
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.no-productos {
+    grid-column: span 4;
+    /* Ocupa toda la fila del grid */
+    text-align: center;
+    font-size: 1.5em;
+    color: #8e44ad;
+    /* Color morado */
+    font-weight: bold;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    /* Centrado horizontal */
+    align-items: center;
+    /* Centrado vertical */
+    height: 200px;
+    /* Ajusta el tamaño según sea necesario */
+}
+
 
 
 /* Ajuste para pantallas pequeñas */
@@ -588,6 +619,20 @@ nav button:hover {
     .productos {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .pagina-info {
+
+        margin-bottom: 10px;
+        margin-top: 15px;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .pagina-actual {
+        font-weight: bold;
+        text-align: center;
+    }
+
 }
 
 
@@ -618,6 +663,7 @@ nav button:hover {
     width: 35px;
     height: 35px;
 }
+
 
 
 /******************************************************************/
