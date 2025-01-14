@@ -163,7 +163,11 @@
             </a>
         </div>
     </div>
-
+    <!-- Overlay y Spinner de carga -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;"></div>
+    <div id="loading-spinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
