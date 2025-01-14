@@ -66,10 +66,11 @@
             </form>
         </div>
         <div class="categorias">
-            <button class="categoria" data-category="promociones" onclick="window.location.href='?categoria=promociones'">
+            <button class="categoria" data-category="promo" onclick="window.location.href='?categoria=promo'">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAACWklEQVR4nM1Uy2oUURA95Wsh0UVc6MoHKggGRVARRXThD7jIxiAIPr5AYXRmqkDITo2IxmhQEFzIgJmu6lGDinEhYnyAO9cqKpqFQhDfGbkzzaQdb/f0ZFx44dLd3L51quqcU8D/sASj3UL6WEifC3SfwOa7J5M+E7IHOYws6hCiSkIWCFk1tr/Hv5nsTi9Ks9vM3NYw6ZV6cH3YBFD1bSZ9IaR3hfRaHiMrW4OQXs4SWBIB7VJLECYd7wxEx1MBCgg2MNlkh5VMFhCu9/BQmiekQ0z2y5PZeUGpqwjbxKQT02f6VKDrmHTKc+eHkJ4SjM2ZbhFsb1JmR6GLXQsY2itkg40zhDuFrJJaGexAA6QI3Zb04yFcmFvLDFZgsv6oJSoIdrVqXRG2o9kPr/zZlLqE9KvAckx6sg4Y9kRmTBPAuz/8cwTBAiZ74wcpb2WEfXlUlkVeOMvQ/RlU9tolGPOGnUhRy3smGxDSUSH7lIeuELK3THrDkevOU8DOxLxhHzNJFJYTsuNCdltQXi6wPWl8ujY3Wsak5zKU/1Kgq5j0c63yOkdf6pwlggzFfCKzmHQ4FQRhXzTTXAv7ndqE7KdTX0JSwy5uk9vD1Sm8PBEEG2NmHYx888j5yHfHCeUv1xcRbk/mwnlC78eynHATQHBzoZBe9N0pQNd6RotuyUQ+ZdywpZ7xWCVGcNBJtUboDAJzfbgGRYS7PQDNVYU9MwD4JqgsQTuLScfaA9KrbQFE1WwWsntCVhLY4eg9nvl1gR5j0jKT3fKqqd0V+eG0kH4QGDsOOw76L9dv0DhTCBIDA3UAAAAASUVORK5CYII=" alt="discount--v1">
                 Promociones
             </button>
+
             <button class="categoria" data-category="todo" onclick="window.location.href='?categoria=todo'">Todo</button>
             <button class="categoria" data-category="anillos" onclick="window.location.href='?categoria=anillos'">Anillos</button>
             <button class="categoria" data-category="cadenas" onclick="window.location.href='?categoria=cadenas'">Cadenas</button>
@@ -118,52 +119,64 @@
             <!-- Mostrar productos -->
             <?php
             $stmt_count = null;
+            // Consulta base para obtener solo productos activos
+            $sql = "SELECT * FROM productos WHERE activo = 1";
 
-            $sql = "SELECT * FROM productos WHERE activo = 1";  // Solo productos activos
+            // Verificar si se ha seleccionado una categoría específica
+            if ($categoria && $categoria !== 'todo') {
+                $sql .= " AND categoria = :categoria"; // Filtrar por categoría específica
+            }
 
+            // Verificar si hay un término de búsqueda
             if ($buscar) {
-                $sql .= " AND (LOWER(nombre) LIKE :buscar OR LOWER(descripcion) LIKE :buscar OR LOWER(categoria) LIKE :buscar OR LOWER(informacion) LIKE :buscar)";
+                $sql .= " AND (LOWER(nombre) LIKE :buscar OR LOWER(descripcion) LIKE :buscar OR LOWER(informacion) LIKE :buscar)";
             }
 
-            if ($categoria !== 'todo') {
-                $sql .= " AND categoria = :categoria";
-            }
-
+            // Limitar los resultados con paginación
             $sql .= " LIMIT :limit OFFSET :offset";
 
-            $stmt = $conn->prepare($sql);
+            try {
+                $stmt = $conn->prepare($sql);
 
-            if ($buscar) {
-                $stmt->bindValue(':buscar', "%{$buscar}%", PDO::PARAM_STR);
-            }
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-            if ($categoria !== 'todo') {
-                $stmt->bindValue(':categoria', $categoria, PDO::PARAM_STR);
-            }
-
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            if (count($result) > 0) {
-                foreach ($result as $row) {
-                    $genero = (strtolower($row['genero']) == 'masculino' || strtolower($row['genero']) == 'hombre') ? 'M' : ((strtolower($row['genero']) == 'femenino' || strtolower($row['genero']) == 'mujer') ? 'F' : '');
-
-                    echo "<div class='producto categoria-{$row['categoria']}'>";
-                    echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='" . htmlspecialchars($row['nombre']) . "'>";
-                    echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
-                    echo "<p class='descripcion'>" . htmlspecialchars($row['descripcion']) . "</p>";
-                    echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . " <span class='genero'>{$genero}</span></p>";
-                    echo "<button class='añadir' onclick='window.open(\"https://wa.me/+525531566578?text=" . urlencode("Me interesa este artículo\n" . $row['nombre'] . "\nPrecio: $" . number_format($row['precio'], 2) . "\nDescripción: " . $row['descripcion'] . "\nID: " . $row['id'] . "\nImagen: " . $row['imagen']) . "\", \"_blank\")'>Encargar</button>";
-                    echo "</div>";
+                // Vincular categoría si no es "todo"
+                if ($categoria && $categoria !== 'todo') {
+                    $stmt->bindValue(':categoria', $categoria, PDO::PARAM_STR);
                 }
-            } else {
-                echo "<p class='no-productos'>No hay productos disponibles.</p>";
+
+                // Vincular parámetros de búsqueda si hay
+                if ($buscar) {
+                    $stmt->bindValue(':buscar', "%{$buscar}%", PDO::PARAM_STR);
+                }
+
+                $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+                $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                if (count($result) > 0) {
+                    foreach ($result as $row) {
+                        echo "<div class='producto categoria-{$row['categoria']}'>";
+                        echo "<img src='" . htmlspecialchars($row['imagen']) . "' alt='" . htmlspecialchars($row['nombre']) . "'>";
+                        echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
+                        echo "<p class='descripcion'>" . htmlspecialchars($row['descripcion']) . "</p>";
+                        echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . "</p>";
+                        echo "<button class='añadir' onclick='window.open(\"https://wa.me/+525531566578?text=" . urlencode("Me interesa este artículo\n" . $row['nombre'] . "\nPrecio: $" . number_format($row['precio'], 2) . "\nDescripción: " . $row['descripcion'] . "\nID: " . $row['id'] . "\nImagen: " . $row['imagen']) . "\", \"_blank\")'>Encargar</button>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "<p class='no-productos'>No hay productos disponibles.</p>";
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
             }
+
 
             $stmt = null;
             $conn = null;
+
             ?>
+
 
         </div>
 
