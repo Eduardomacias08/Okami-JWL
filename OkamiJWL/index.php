@@ -119,13 +119,16 @@
             <?php
             $stmt_count = null;
 
-            $sql = "SELECT * FROM productos WHERE 1=1";
+            $sql = "SELECT * FROM productos WHERE activo = 1";  // Solo productos activos
+
             if ($buscar) {
                 $sql .= " AND (LOWER(nombre) LIKE :buscar OR LOWER(descripcion) LIKE :buscar OR LOWER(categoria) LIKE :buscar OR LOWER(informacion) LIKE :buscar)";
             }
+
             if ($categoria !== 'todo') {
                 $sql .= " AND categoria = :categoria";
             }
+
             $sql .= " LIMIT :limit OFFSET :offset";
 
             $stmt = $conn->prepare($sql);
@@ -161,6 +164,7 @@
             $stmt = null;
             $conn = null;
             ?>
+
         </div>
 
         <div class="pagina-info">
