@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Venta de Plata prueba</title>
+    <title>Catálogo de Venta de Plata</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -158,7 +158,6 @@
                         echo "<p class='descripcion'>" . htmlspecialchars($row['descripcion']) . "</p>";
                         echo "<p class='precio'>Precio: $" . number_format($row['precio'], 2) . " <span class='genero'>{$genero}</span></p>";
                         echo "<button class='añadir' onclick='window.open(\"https://wa.me/+525584039044?text=" . urlencode("Me interesa este artículo\n" . $row['nombre'] . "\nPrecio: $" . number_format($row['precio'], 2) . "\nDescripción: " . $row['descripcion'] . "\nID: " . $row['id'] . "\nImagen: " . $row['imagen']) . "\", \"_blank\")'>Encargar</button>";
-
                         echo "<a href='#' class='mas-info'>Más Información</a>";
                         echo "</div>";
                     }
@@ -174,12 +173,7 @@
             }
             ?>
 
-
-
-
         </div>
-
-
 
 
         <!-- Paginación -->
