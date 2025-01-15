@@ -10,6 +10,7 @@ img {
     box-sizing: border-box;
 }
 
+/* Estilos generales del body */
 body {
     font-family: "Comic Neue", serif;
     background-color: #3a405f00;
@@ -33,6 +34,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilos del logo dentro del Navbar */
 .logo {
     display: flex;
     align-items: center;
@@ -61,6 +63,7 @@ body {
     margin-left: 10px;
 }
 
+/* Estilos de navegación dentro del Navbar */
 nav {
     display: flex;
     gap: 15px;
@@ -83,6 +86,7 @@ nav button:hover {
     color: black;
 }
 
+/* Estilos del texto "Quienes Somos" */
 #texto-quienes-somos {
     position: fixed;
     top: 30%;
@@ -281,6 +285,7 @@ nav button:hover {
     }
 }
 
+/* Estilos del contenido principal */
 #contenido {
     background-color: #3a405f00;
     padding: 20px;
@@ -289,6 +294,7 @@ nav button:hover {
     margin: 0 auto;
 }
 
+/* Estilos de la barra de búsqueda */
 .barra-busqueda {
     display: flex;
     align-items: center;
@@ -327,6 +333,7 @@ nav button:hover {
     margin-left: auto;
 }
 
+/* Estilos de las categorías */
 .categorias {
     display: flex;
     gap: 10px;
@@ -357,6 +364,7 @@ nav button:hover {
     vertical-align: middle;
 }
 
+/* Estilos de los productos */
 .productos {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -457,6 +465,7 @@ nav button:hover {
     margin-left: 10px;
 }
 
+/* Mensaje cuando no hay productos */
 .mensaje-vacio {
     grid-column: 1 / -1;
     text-align: center;
@@ -465,6 +474,7 @@ nav button:hover {
     font-weight: bold;
 }
 
+/* Información de la página actual */
 .pagina-actual {
     font-weight: bold;
     text-align: right;
@@ -477,6 +487,7 @@ nav button:hover {
     color: #333;
 }
 
+/* Mensaje cuando no hay productos */
 .no-productos {
     grid-column: span 4;
     text-align: center;
@@ -501,6 +512,7 @@ nav button:hover {
     }
 }
 
+/* Estilos de la paginación */
 .paginacion {
     text-align: center;
     margin: 60px 0;
@@ -576,6 +588,7 @@ nav button:hover {
     }
 }
 
+/* Estilos del footer */
 .footer {
     background-color: #ce92e660;
     font-family: 'Arial', sans-serif;
