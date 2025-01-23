@@ -20,7 +20,7 @@
         <div class="logo">
             <a href="?categoria=todo">
                 <img src="imagenes/LOGO.png" alt="Logo" loading="lazy">
-                <span><strong>OKAMI</strong>-JWL</span>
+                <span><strong>OKAMi</strong>-JWL</span>
             </a>
         </div>
         <nav>

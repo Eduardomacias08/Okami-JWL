@@ -1,6 +1,9 @@
 # Usar la imagen oficial de PHP con Apache
 FROM php:8.0-apache
 
+# Habilitar mod_rewrite para URLs amigables
+RUN a2enmod rewrite
+
 # Habilitar el módulo de PHP para MySQL
 RUN docker-php-ext-install pdo pdo_mysql
 
